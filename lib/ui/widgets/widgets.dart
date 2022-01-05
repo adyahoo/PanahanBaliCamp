@@ -12,3 +12,6 @@ part 'rating_card_stars.dart';
 part 'rating_stars.dart';
 part 'item_card.dart';
 part 'item_archer_list.dart';
+part 'jadwal.dart';
+part 'venue.dart';
+part 'pertandingan.dart';

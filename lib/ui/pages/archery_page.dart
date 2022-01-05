@@ -42,9 +42,18 @@ class _ArcherPageState extends State<ArcherPage> {
                     ),
                     SizedBox(height: 32),
                     Column(
-                      children: (selectedIndex == 0 ? (jadwals).map((e) => Text(e.name)).toList() :
-                          selectedIndex == 1 ? (venues).map((e) => Text(e.name)).toList() :
-                          (pertandingans).map((e) => Text(e.name)).toList()
+                      children: (selectedIndex == 0 ? (jadwals).map((e) => Padding(
+                        padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+                        child: Jadwal(jadwal: e, buttonTap: () {},),
+                      )).toList() :
+                          selectedIndex == 1 ? (venues).map((e) => Padding(
+                            padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+                            child: Venue(venue: e, buttonMap: () {},)
+                          )).toList() :
+                          (pertandingans).map((e) => Padding(
+                            padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+                            child: Pertandingan(pertandingan: e)
+                          )).toList()
                       ),
                     ),
                     SizedBox(height: 16)

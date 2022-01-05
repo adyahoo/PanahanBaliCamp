@@ -3,14 +3,12 @@ part of 'models.dart';
 class PertandinganModel {
   final String name;
   final String description;
-  final String address;
+  final String schedule;
+  final String image;
 
-  PertandinganModel(this.name, this.description, this.address);
+  PertandinganModel(this.name, this.description, this.schedule, this.image);
 }
 
 List<PertandinganModel> mockPertandingan = [
-  PertandinganModel("Perlombaan Sanur", "Perlombaan sanur yang terbaik", "Jl. Sanur"),
-  PertandinganModel("Perlombaan Sanur1", "Perlombaan sanur yang terbaik", "Jl. Sanur"),
-  PertandinganModel("Perlombaan Sanur2", "Perlombaan sanur yang terbaik", "Jl. Sanur"),
-  PertandinganModel("Perlombaan Sanur3", "Perlombaan sanur yang terbaik", "Jl. Sanur"),
+  PertandinganModel("Perlombaan Sanur", "Perlombaan sanur yang terbaik", "Lapangan Sanur | 17 okt 2021 - 21 okt 2021", "training.png"),
 ];
