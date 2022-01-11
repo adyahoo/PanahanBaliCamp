@@ -35,15 +35,7 @@ class _MainPageState extends State<MainPage> {
               children: [
                 HomePage(),
                 ArcherPage(),
-                IllustrationPage(
-                  title: "Order Berhasil Dibuat",
-                  subtitle: "Silahkan cek status pemesanan\nuntuk memastikan proses",
-                  image: "illustration_img.png",
-                  titleButton1: "Beli Lagi",
-                  buttonTap1: () {},
-                  titleButton2: "Lihat Pesanan",
-                  buttonTap2: () {},
-                ),
+                OrderListPage(),
                 ProfilePage(),
               ],
             )

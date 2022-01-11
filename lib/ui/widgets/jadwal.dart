@@ -3,8 +3,9 @@ part of 'widgets.dart';
 class Jadwal extends StatelessWidget {
   final JadwalModel jadwal;
   final Function buttonTap;
+  final bool withLine;
 
-  const Jadwal({Key? key, required this.jadwal, required this.buttonTap}) : super(key: key);
+  const Jadwal({Key? key, required this.jadwal, required this.buttonTap, this.withLine = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class Jadwal extends StatelessWidget {
           Container(
             height: 1,
             margin: EdgeInsets.only(top: 51),
-            color: 'F2F2F2'.toColor(),
+            color: (withLine == true) ? 'F2F2F2'.toColor() : Colors.white,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

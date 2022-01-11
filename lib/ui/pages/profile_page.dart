@@ -36,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: AssetImage("assets/images/circle-avatar.jpg")
+                      image: AssetImage("assets/images/${user.image}")
                     )
                   )
                 )
@@ -134,7 +134,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Text("ID Card", style: blackFontStyle3),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Get.to(IdCardPage());
+                            },
                             child: Container(
                               width: 24,
                               height: 24,

@@ -6,8 +6,8 @@ class IllustrationPage extends StatelessWidget {
   final String image;
   final String titleButton1;
   final String? titleButton2;
-  final Function buttonTap1;
-  final Function? buttonTap2;
+  final VoidCallback buttonTap1;
+  final VoidCallback? buttonTap2;
 
   const IllustrationPage({Key? key,
     required this.title,
@@ -25,13 +25,13 @@ class IllustrationPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 150,
-            height: 150,
+            width: 200,
+            height: 200,
             margin: EdgeInsets.only(bottom: 50),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/" + image),
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               )
             )
           ),
@@ -42,7 +42,7 @@ class IllustrationPage extends StatelessWidget {
             height: 45,
             margin: EdgeInsets.only(top: 30, bottom: 12),
             child: ElevatedButton(
-              onPressed: buttonTap1(),
+              onPressed: buttonTap1,
               style: ButtonStyle(
                 elevation: MaterialStateProperty.all(0),
                 backgroundColor: MaterialStateProperty.all(mainColor),
@@ -58,7 +58,7 @@ class IllustrationPage extends StatelessWidget {
                 width: 200,
                 height: 45,
                 child: ElevatedButton(
-                  onPressed: buttonTap2!(),
+                  onPressed: buttonTap2,
                   style: ButtonStyle(
                     elevation: MaterialStateProperty.all(0),
                     backgroundColor: MaterialStateProperty.all(greyColor),

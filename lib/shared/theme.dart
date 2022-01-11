@@ -7,6 +7,7 @@ Color greyColorBody = "FAFAFC".toColor();
 Color greyStar = "ECECEC".toColor();
 Color redColor = "D9435E".toColor();
 Color greenColor = "1ABC9C".toColor();
+Color blueColor = "005FB0".toColor();
 
 TextStyle greyFontStyle = GoogleFonts.poppins().copyWith(color: greyColor);
 TextStyle blackFontStyle1 = GoogleFonts.poppins().copyWith(color: Colors.black, fontSize: 22, fontWeight: FontWeight.w500);
