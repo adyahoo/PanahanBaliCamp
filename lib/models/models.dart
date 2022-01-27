@@ -9,3 +9,4 @@ part 'pertandingan_model.dart';
 part 'score_model.dart';
 part 'transaction.dart';
 part 'cart_model.dart';
+part 'api_return_value.dart';

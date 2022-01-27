@@ -7,11 +7,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:panahan_app/cubit/user_cubit.dart';
 import 'package:panahan_app/models/models.dart';
 import 'package:panahan_app/shared/shared.dart';
 import 'package:panahan_app/ui/widgets/widgets.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:supercharged/supercharged.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'general_page.dart';
 part 'sign_in_page.dart';
