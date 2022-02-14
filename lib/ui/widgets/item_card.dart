@@ -28,7 +28,7 @@ class ItemCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
               image: DecorationImage(
-                image: AssetImage("assets/images/" + archerModel!.image),
+                image: AssetImage("assets/images/" + archerModel!.image!),
                 fit: BoxFit.cover,
               )
             ),
@@ -36,7 +36,7 @@ class ItemCard extends StatelessWidget {
           //name of card
           Container(
             margin: EdgeInsets.fromLTRB(12, 8, 0, 2),
-            child: Text(archerModel!.name, maxLines: 1, overflow: TextOverflow.clip, style: blackFontStyle2,),
+            child: Text(archerModel!.name!, maxLines: 1, overflow: TextOverflow.clip, style: blackFontStyle2,),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
@@ -50,7 +50,7 @@ class ItemCard extends StatelessWidget {
                   decimalDigits: 0
                 ).format(archerModel!.price)),
                 //rate of card
-                RatingCardStar(rate: archerModel!.rate)
+                RatingCardStar(rate: archerModel!.rate!)
               ],
             ),
           ),

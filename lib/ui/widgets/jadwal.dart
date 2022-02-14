@@ -24,8 +24,9 @@ class Jadwal extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(jadwal.name, style: blackFontStyle2,),
-                  Text(jadwal.date, style: blackFontStyle3,)
+                  Text(jadwal.name!, style: blackFontStyle2,),
+                  // Text(jadwal.date!, style: blackFontStyle3,)
+                  Text(jadwal.date!, style: blackFontStyle3,)
                 ],
               ),
               Container(
@@ -33,7 +34,7 @@ class Jadwal extends StatelessWidget {
                 height: 30,
                 child: ElevatedButton(
                   onPressed: buttonTap(),
-                  child: Text(jadwal.status, style: (jadwal.status == "Recorded") ? greenFontStyle3.copyWith(fontWeight: FontWeight.bold) : blackFontStyle3.copyWith(fontWeight: FontWeight.bold)),
+                  child: Text(jadwal.status!, style: (jadwal.status == "Recorded") ? greenFontStyle3.copyWith(fontWeight: FontWeight.bold) : blackFontStyle3.copyWith(fontWeight: FontWeight.bold)),
                   style: ButtonStyle(
                     elevation: MaterialStateProperty.all(0),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(

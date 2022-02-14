@@ -13,6 +13,11 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    context.bloc<ArcherCubit>().getArchers();
+    context.bloc<JadwalCubit>().getJadwals();
+    context.bloc<VenueCubit>().getVenues();
+    context.bloc<PertandinganCubit>().getPertandingans();
+
     return Scaffold(
       body: Stack(
         children: [

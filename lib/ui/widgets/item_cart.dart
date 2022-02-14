@@ -7,7 +7,7 @@ class ItemCart extends StatefulWidget {
 
   @override
   _ItemCartState createState() => _ItemCartState(
-    qty: cart.qty
+    qty: cart.qty!
   );
 }
 
@@ -33,7 +33,7 @@ class _ItemCartState extends State<ItemCart> {
                   borderRadius: BorderRadius.circular(8),
                   image: DecorationImage(
                       image: AssetImage(
-                          "assets/images/${widget.cart.archer.image}"),
+                          "assets/images/${widget.cart.archer!.image!}"),
                       fit: BoxFit.cover)),
             ),
             //item of cart
@@ -41,7 +41,7 @@ class _ItemCartState extends State<ItemCart> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.cart.archer.name,
+                  widget.cart.archer!.name!,
                   style: blackFontStyle2,
                 ),
                 (currentState != 0)

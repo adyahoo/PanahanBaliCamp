@@ -8,6 +8,8 @@ class CustomBottomNavbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserModel user = getUserData();
+
     return Container(
       width: double.infinity,
       height: 60,
@@ -80,8 +82,9 @@ class CustomBottomNavbar extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   image: DecorationImage(
-                    image: AssetImage("assets/images/circle-avatar.jpg"),
-                    fit: BoxFit.contain,
+                    // image: NetworkImage(profpicUrl+(context.bloc<UserCubit>().state as UserLoaded).user!.image!),
+                    image: NetworkImage(profpicUrl+user.image!),
+                    fit: BoxFit.cover,
                   )
               ),
             ),

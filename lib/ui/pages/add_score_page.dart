@@ -142,7 +142,7 @@ class _AddScorePageState extends State<AddScorePage> {
                           selectedVenue = value;
                         });
                       },
-                      getLabel: (value) => value.name,
+                      getLabel: (value) => value.name!,
                     )),
                 SizedBox(height: 16),
                 Container(

@@ -27,3 +27,5 @@ Widget loadingIndicator = SpinKitFadingCircle(
   color: mainColor,
   size: 45,
 );
+
+const String profpicUrl = "https://api.panahan.alengkongbalicamp.com/storage/profile_images/";

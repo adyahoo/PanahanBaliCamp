@@ -17,7 +17,7 @@ class ItemArcherList extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             image: DecorationImage(
-              image: AssetImage("assets/images/" + archer.image),
+              image: AssetImage("assets/images/" + archer.image!),
               fit: BoxFit.cover,
             )
           ),
@@ -27,7 +27,7 @@ class ItemArcherList extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(archer.name, style: blackFontStyle2, maxLines: 1, overflow: TextOverflow.clip,),
+              Text(archer.name!, style: blackFontStyle2, maxLines: 1, overflow: TextOverflow.clip,),
               Text(NumberFormat.currency(
                 symbol: "IDR ",
                 locale: "id-ID",
@@ -37,7 +37,7 @@ class ItemArcherList extends StatelessWidget {
             ],
           ),
         ),
-        RatingStar(rate: archer.rate,)
+        RatingStar(rate: archer.rate!,)
       ],
     );
   }

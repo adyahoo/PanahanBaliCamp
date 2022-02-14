@@ -21,7 +21,7 @@ class Pertandingan extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       image: DecorationImage(
-                          image: AssetImage("assets/images/" + pertandingan.image),
+                          image: AssetImage("assets/images/" + pertandingan.image!),
                           fit: BoxFit.cover
                       )
                   ),
@@ -29,11 +29,11 @@ class Pertandingan extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(pertandingan.name, style: blackFontStyle2,),
+                    Text(pertandingan.name!, style: blackFontStyle2,),
                     Container(
                         width: 180,
                         child: Text(
-                          pertandingan.description,
+                          pertandingan.description!,
                           style: greyFontStyle,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -58,7 +58,7 @@ class Pertandingan extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: 4,),
-                            Text(pertandingan.schedule, style: greyFontStyle.copyWith(color: Colors.white, fontSize: 8),)
+                            Text("${pertandingan.address} | ${pertandingan.schedule}", style: greyFontStyle.copyWith(color: Colors.white, fontSize: 8),)
                           ],
                         )
                     ),

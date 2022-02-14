@@ -63,6 +63,7 @@ class _SignInPageState extends State<SignInPage> {
             ),
             child: TextField(
               controller: passController,
+              obscureText: true,
               decoration: InputDecoration(
                   border: InputBorder.none,
                   hintStyle: greyFontStyle,
@@ -77,55 +78,52 @@ class _SignInPageState extends State<SignInPage> {
             child: isLoading
                 ? loadingIndicator
                 : RaisedButton(
-              onPressed: () async {
-                setState(() {
-                  isLoading = true;
-                });
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
 
-                await context.bloc<UserCubit>().login(
-                    emailController.text, passController.text);
-                UserState state = context
-                    .bloc<UserCubit>()
-                    .state;
+                      await context
+                          .bloc<UserCubit>()
+                          .login(emailController.text, passController.text);
+                      UserState state = context.bloc<UserCubit>().state;
 
-                if (state is UserLoaded) {
-                  Get.snackbar("", "",
-                      backgroundColor: Colors.green,
-                      titleText: Text("Login Success",
-                          style: blackFontStyle2.copyWith(color: Colors.white)),
-                      messageText: Text(
-                          "berhasil login bro...",
-                          style: blackFontStyle3.copyWith(color: Colors.white)
-                      )
-                  );
-                  setState(() {
-                    isLoading = false;
-                  });
-                } else {
-                  Get.snackbar("", "",
-                      backgroundColor: redColor,
-                      titleText: Text("Login Failed",
-                          style: blackFontStyle2.copyWith(color: Colors.white)),
-                      messageText: Text(
-                          (state as UserLoadedFailed).message!,
-                          style: blackFontStyle3.copyWith(color: Colors.white)
-                      )
-                  );
-                  setState(() {
-                    isLoading = false;
-                  });
-                }
-              },
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              color: mainColor,
-              child: Text(
-                "Masuk",
-                style: blackFontStyle3,
-              ),
-            ),
+                      if (state is UserLoaded) {
+                        Get.snackbar(
+                          "",
+                          "",
+                          backgroundColor: Colors.green,
+                          titleText: Text("Login Success",
+                              style: blackFontStyle2.copyWith(
+                                  color: Colors.white)),
+                        );
+
+                        Get.to(MainPage());
+                      } else {
+                        Get.snackbar("", "",
+                            backgroundColor: redColor,
+                            titleText: Text("Login Failed",
+                                style: blackFontStyle2.copyWith(
+                                    color: Colors.white)),
+                            messageText: Text(
+                                (state as UserLoadedFailed).message!,
+                                style: blackFontStyle3.copyWith(
+                                    color: Colors.white)));
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
+                    },
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    color: mainColor,
+                    child: Text(
+                      "Masuk",
+                      style: blackFontStyle3,
+                    ),
+                  ),
           ),
           Container(
             width: double.infinity,
@@ -134,27 +132,23 @@ class _SignInPageState extends State<SignInPage> {
             padding: EdgeInsets.symmetric(horizontal: defaultMargin),
             child: isLoading
                 ? SpinKitFadingCircle(
-              color: mainColor,
-              size: 45,
-            )
+                    color: mainColor,
+                    size: 45,
+                  )
                 : RaisedButton(
-              onPressed: () {
-                Get.to(ArcherDetailPage(
-                  onBackButtonPressed: () {
-                    Get.back();
-                  },
-                ));
-                // Get.to(SignUpPage());
-              },
-              color: secondColor,
-              elevation: 0,
-              child: Text("Daftar Akun Baru",
-                  style: GoogleFonts.poppins()
-                      .copyWith(color: Colors.white)),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
+                    onPressed: () {
+                      context.bloc<ProvinceCubit>().getProvinces();
+                      Get.to(SignUpPage());
+                    },
+                    color: secondColor,
+                    elevation: 0,
+                    child: Text("Daftar Akun Baru",
+                        style: GoogleFonts.poppins()
+                            .copyWith(color: Colors.white)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
           ),
         ],
       ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:panahan_app/models/models.dart';
@@ -16,5 +18,23 @@ class UserCubit extends Cubit<UserState> {
     } else {
       emit(UserLoadedFailed(result.message));
     }
+  }
+
+  Future<void> register(UserModel user, String password,
+      {File? imageFile}) async {
+    ApiReturnValue<UserModel> result =
+        await UserService.register(user, password, imageFile: imageFile);
+
+    if (result.value != null) {
+      emit(UserLoaded(result.value));
+    } else {
+      emit(UserLoadedFailed(result.message));
+    }
+  }
+
+  Future<void> logout() async {
+    ApiReturnValue<String> result = await UserService.logout();
+
+    emit(UserLoggedOut(result.message));
   }
 }

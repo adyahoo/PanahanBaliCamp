@@ -3,15 +3,26 @@ import 'dart:math';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:panahan_app/cubit/archer_cubit.dart';
+import 'package:panahan_app/cubit/city_cubit.dart';
+import 'package:panahan_app/cubit/jadwal_cubit.dart';
+import 'package:panahan_app/cubit/pertandingan_cubit.dart';
+import 'package:panahan_app/cubit/province_cubit.dart';
 import 'package:panahan_app/cubit/user_cubit.dart';
+import 'package:panahan_app/cubit/venue_cubit.dart';
 import 'package:panahan_app/models/models.dart';
 import 'package:panahan_app/shared/shared.dart';
 import 'package:panahan_app/ui/widgets/widgets.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,3 +51,17 @@ part 'order_list_page.dart';
 part 'order_detail_page.dart';
 part 'payment_info_page.dart';
 part 'idcard_page.dart';
+
+Future<bool?> getLoginStatus () async {
+  final pref = await SharedPreferences.getInstance();
+  var status = pref.getBool("isLogin") ?? false;
+
+  return status;
+}
+
+UserModel getUserData() {
+  var userBox = Hive.box('userBox');
+  UserModel user = userBox.getAt(0);
+
+  return user;
+}

@@ -22,7 +22,7 @@ class Venue extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     image: DecorationImage(
-                        image: AssetImage("assets/images/" + venue.image),
+                        image: AssetImage("assets/images/" + venue.image!),
                         fit: BoxFit.cover
                     )
                 ),
@@ -30,11 +30,11 @@ class Venue extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(venue.name, style: blackFontStyle2,),
+                  Text(venue.name!, style: blackFontStyle2,),
                   Container(
                       width: 180,
                       child: Text(
-                        venue.address,
+                        venue.address!,
                         style: greyFontStyle,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

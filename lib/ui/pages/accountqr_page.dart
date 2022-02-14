@@ -18,11 +18,9 @@ class _AccountqrPageState extends State<AccountqrPage> {
         },
         child: Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 121, horizontal: 52),
-            child: Image.asset(
-                "assets/images/qrcode.png",
-                width: 256,
-                height: 256
+            padding: EdgeInsets.symmetric(vertical: 100, horizontal: 52),
+            child: QrImage(
+              data: "https://194.163.183.129/",
             )
         )
     );
