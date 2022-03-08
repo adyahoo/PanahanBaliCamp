@@ -11,10 +11,12 @@ import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:panahan_app/cubit/archer_cubit.dart';
+import 'package:panahan_app/cubit/cart_cubit.dart';
 import 'package:panahan_app/cubit/city_cubit.dart';
 import 'package:panahan_app/cubit/jadwal_cubit.dart';
 import 'package:panahan_app/cubit/pertandingan_cubit.dart';
 import 'package:panahan_app/cubit/province_cubit.dart';
+import 'package:panahan_app/cubit/score_cubit.dart';
 import 'package:panahan_app/cubit/user_cubit.dart';
 import 'package:panahan_app/cubit/venue_cubit.dart';
 import 'package:panahan_app/models/models.dart';
@@ -34,7 +36,9 @@ part 'main_page.dart';
 part 'home_page.dart';
 part 'archer_detail_page.dart';
 part 'forget_password.dart';
+part 'forget_token.dart';
 part 'change_password.dart';
+part 'success_reset_pass_page.dart';
 part 'payment_page.dart';
 part 'illustration_page.dart';
 part 'archery_page.dart';
@@ -51,17 +55,4 @@ part 'order_list_page.dart';
 part 'order_detail_page.dart';
 part 'payment_info_page.dart';
 part 'idcard_page.dart';
-
-Future<bool?> getLoginStatus () async {
-  final pref = await SharedPreferences.getInstance();
-  var status = pref.getBool("isLogin") ?? false;
-
-  return status;
-}
-
-UserModel getUserData() {
-  var userBox = Hive.box('userBox');
-  UserModel user = userBox.getAt(0);
-
-  return user;
-}
+part 'edit_profile_page.dart';

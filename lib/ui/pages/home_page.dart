@@ -27,40 +27,40 @@ class _HomePageState extends State<HomePage> {
               width: double.infinity,
               child: BlocBuilder<ArcherCubit, ArcherState>(
                 builder: (_, state) => (state is ArcherLoaded)
-                    ? ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          Row(
-                            children: state.archers!
-                                .map(
-                                  (e) => Padding(
-                                      padding: EdgeInsets.only(
-                                        left: (e == state.archers!.first)
-                                            ? defaultMargin
-                                            : 0,
-                                        right: defaultMargin,
-                                      ),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Get.to(ArcherDetailPage(
-                                            transaction: Transaction(
-                                              archer: e,
-                                              user: getUserData()
-                                            ),
-                                            onBackButtonPressed: () {
-                                              Get.back();
+                    ? (state.archers!.isNotEmpty)
+                        ? ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              Row(
+                                children: state.archers!
+                                    .map(
+                                      (e) => Padding(
+                                          padding: EdgeInsets.only(
+                                            left: (e == state.archers!.first)
+                                                ? defaultMargin
+                                                : 0,
+                                            right: defaultMargin,
+                                          ),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              Get.to(ArcherDetailPage(
+                                                archer: e,
+                                                user: getUserData(),
+                                                onBackButtonPressed: () {
+                                                  Get.back();
+                                                },
+                                              ));
                                             },
-                                          ));
-                                        },
-                                        child: ItemCard(
-                                          archerModel: e,
-                                        ),
-                                      )),
-                                )
-                                .toList(),
+                                            child: ItemCard(
+                                              archerModel: e,
+                                            ),
+                                          )),
+                                    )
+                                    .toList(),
+                              )
+                            ],
                           )
-                        ],
-                      )
+                        : noDataFound
                     : Center(child: loadingIndicator),
               ),
             ),
@@ -93,28 +93,41 @@ class _HomePageState extends State<HomePage> {
                   ),
                   BlocBuilder<ArcherCubit, ArcherState>(builder: (_, state) {
                     if (state is ArcherLoaded) {
-                      List<ArcherModel> archers = state.archers!.where(
-                          (element) => element.category!.contains(
-                              (selectedIndex == 0)
-                                  ? "Alat Panahan"
-                                  : "Membership"
-                              // : (selectedIndex == 1)
-                              // ? "Busur"
-                              // : (selectedIndex == 2)
-                              // ? "Anak Panah"
-                              // : (selectedIndex == 3)
-                              // ? "Jersey" : "Aksesoris")
-                              )).toList();
+                      List<ArcherModel> archers = state.archers!
+                          .where((element) =>
+                              element.category!.contains((selectedIndex == 0)
+                                  ? "Paket Latihan"
+                                  : (selectedIndex == 1)
+                                      ? "Busur"
+                                      : (selectedIndex == 2)
+                                          ? "Anak Panah"
+                                          : (selectedIndex == 3)
+                                              ? "Jersey"
+                                              : "Aksesoris"))
+                          .toList();
 
-                      return Column(
-                        children: archers
-                            .map((e) => Padding(
-                                padding: EdgeInsets.fromLTRB(
-                                    defaultMargin, 0, defaultMargin, 16),
-                                child: ItemArcherList(
-                                    archer: e, itemWidth: listItemWidth)))
-                            .toList(),
-                      );
+                      return (archers.isNotEmpty)
+                          ? Column(
+                              children: archers
+                                  .map((e) => Padding(
+                                      padding: EdgeInsets.fromLTRB(
+                                          defaultMargin, 0, defaultMargin, 16),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Get.to(ArcherDetailPage(
+                                              onBackButtonPressed: () {
+                                                Get.back();
+                                              },
+                                              archer: e,
+                                              user: getUserData()));
+                                        },
+                                        child: ItemArcherList(
+                                            archer: e,
+                                            itemWidth: listItemWidth),
+                                      )))
+                                  .toList(),
+                            )
+                          : noDataFound;
                     } else {
                       return Center(child: loadingIndicator);
                     }

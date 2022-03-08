@@ -8,8 +8,8 @@ part 'jadwal_state.dart';
 class JadwalCubit extends Cubit<JadwalState> {
   JadwalCubit() : super(JadwalInitial());
 
-  Future<void> getJadwals() async {
-    ApiReturnValue<List<JadwalModel>> result = await JadwalServices.getJadwals();
+  Future<void> getJadwals(int userId) async {
+    ApiReturnValue<List<JadwalModel>> result = await JadwalServices.getJadwals(userId: userId);
 
     if (result.value != null) {
       emit(JadwalLoaded(result.value));

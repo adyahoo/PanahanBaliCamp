@@ -98,4 +98,64 @@ class UserService {
 
     return ApiReturnValue(message: data['message']);
   }
+
+  static Future<ApiReturnValue<String>> postForgetPassEmail(
+      {http.Client? client, String? email}) async {
+    client ??= http.Client();
+
+    var url = baseURL + "forgotpassword";
+
+    var response = await client.post(url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(<String, String>{"email": email!}));
+
+    var data = json.decode(response.body);
+
+    if (data['status'] != 200) {
+      return ApiReturnValue(message: "${data['message']}, Please Try Again");
+    }
+
+    return ApiReturnValue(value: data['status'].toString(), message: "Sukses, Silahkan Cek Email Anda");
+  }
+
+  static Future<ApiReturnValue<String>> postForgetPassToken({http.Client? client, String? token}) async {
+    client ??= http.Client();
+
+    var url = baseURL + "checktoken";
+
+    var response = await client.post(url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(<String, String>{"token": token!}));
+
+    var data = json.decode(response.body);
+
+    if (data['status'] != 200) {
+      return ApiReturnValue(message: "${data['message']}, Please Try Again");
+    }
+
+    return ApiReturnValue(value: data['status'].toString(), message: data['message']);
+  }
+
+  static Future<ApiReturnValue<String>> resetPass(
+      {http.Client? client, String? email, String? password, String? confPassword}) async {
+    client ??= http.Client();
+
+    var url = baseURL + "resetpassword";
+
+    var response = await client.post(url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(<String, String>{
+          "email": email!,
+          "password": password!,
+          "confirm_password": confPassword!
+        }));
+
+    var data = json.decode(response.body);
+
+    if (data['status'] != 200) {
+      return ApiReturnValue(message: "${data['message']}, Please Try Again");
+    }
+
+    return ApiReturnValue(value: data['status'].toString(), message: data['message']);
+  }
 }

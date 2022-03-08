@@ -10,13 +10,15 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int selectedPage = 0;
   PageController pageController = PageController();
+  UserModel user = getUserData();
 
   @override
   Widget build(BuildContext context) {
     context.bloc<ArcherCubit>().getArchers();
-    context.bloc<JadwalCubit>().getJadwals();
+    context.bloc<JadwalCubit>().getJadwals(user.id!);
     context.bloc<VenueCubit>().getVenues();
     context.bloc<PertandinganCubit>().getPertandingans();
+    context.bloc<ProvinceCubit>().getProvinces();
 
     return Scaffold(
       body: Stack(

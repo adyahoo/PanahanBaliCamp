@@ -5,8 +5,11 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:panahan_app/cubit/cubit.dart';
 import 'package:panahan_app/models/models.dart';
+import 'package:panahan_app/shared/shared.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
+import 'cubit/cart_cubit.dart';
+import 'cubit/score_cubit.dart';
 import 'ui/pages/pages.dart';
 
 Future<void> main() async {
@@ -38,6 +41,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => JadwalCubit()),
         BlocProvider(create: (_) => VenueCubit()),
         BlocProvider(create: (_) => PertandinganCubit()),
+        BlocProvider(create: (_) => ScoreCubit()),
+        BlocProvider(create: (_) => CartCubit()),
       ],
       child: GetMaterialApp(
         title: 'Panahan App',

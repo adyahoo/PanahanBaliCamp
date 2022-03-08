@@ -2,10 +2,10 @@ part of 'services.dart';
 
 class JadwalServices {
   static Future<ApiReturnValue<List<JadwalModel>>> getJadwals(
-      {http.Client? client}) async {
+      {http.Client? client, int? userId}) async {
     client ??= http.Client();
 
-    var url = baseURL + "schedulle/1";
+    var url = baseURL + "schedulle/$userId";
 
     String? token = await getToken();
 
@@ -15,7 +15,7 @@ class JadwalServices {
 
     var data = jsonDecode(response.body);
 
-    if (data['status'] != "200") {
+    if (data['status'] != 200) {
       return ApiReturnValue(message: "${data['message']}, Please Try Again");
     }
 

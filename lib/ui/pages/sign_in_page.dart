@@ -89,26 +89,13 @@ class _SignInPageState extends State<SignInPage> {
                       UserState state = context.bloc<UserCubit>().state;
 
                       if (state is UserLoaded) {
-                        Get.snackbar(
-                          "",
-                          "",
-                          backgroundColor: Colors.green,
-                          titleText: Text("Login Success",
-                              style: blackFontStyle2.copyWith(
-                                  color: Colors.white)),
-                        );
+                        snackbarSuccess(title: "Login Success");
 
                         Get.to(MainPage());
                       } else {
-                        Get.snackbar("", "",
-                            backgroundColor: redColor,
-                            titleText: Text("Login Failed",
-                                style: blackFontStyle2.copyWith(
-                                    color: Colors.white)),
-                            messageText: Text(
-                                (state as UserLoadedFailed).message!,
-                                style: blackFontStyle3.copyWith(
-                                    color: Colors.white)));
+                        snackbarError(
+                            title: "Login Failed",
+                            subtitle: (state as UserLoadedFailed).message!);
                         setState(() {
                           isLoading = false;
                         });
@@ -128,7 +115,7 @@ class _SignInPageState extends State<SignInPage> {
           Container(
             width: double.infinity,
             height: 45,
-            margin: EdgeInsets.only(top: 12),
+            margin: EdgeInsets.only(top: 12, bottom: 12),
             padding: EdgeInsets.symmetric(horizontal: defaultMargin),
             child: isLoading
                 ? SpinKitFadingCircle(
@@ -150,6 +137,11 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ),
           ),
+          GestureDetector(
+              onTap: () {
+                Get.to(ForgetPasswordPage());
+              },
+              child: Text("Lupa Password?"))
         ],
       ),
     );

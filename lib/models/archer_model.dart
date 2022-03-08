@@ -9,29 +9,40 @@ class ArcherModel extends Equatable {
   final int? price;
   final double? rate;
   final int? stock;
+  final String? listItems;
 
-  ArcherModel(
-      {this.id,
-      this.name,
-      this.description,
-      this.category,
-      this.image,
-      this.price,
-      this.rate = 4.5,
-      this.stock});
+  ArcherModel({
+    this.id,
+    this.name,
+    this.description,
+    this.category,
+    this.image,
+    this.price,
+    this.rate = 0,
+    this.stock,
+    this.listItems = "",
+  });
 
   factory ArcherModel.fromJson(Map<String, dynamic> data) => ArcherModel(
-        id: data['id'],
-        // category: (data['kategori'] == "Alat Panahan")
-        //     ? ArcherCategory.paketLatihan
-        //     : ArcherCategory.busur,
-        category: data['kategori'],
-        name: data['nama'],
-        price: data['harga'],
-        description: data['deskripsi'],
-        image: data['image'],
-        stock: data['stok'],
-      );
+      id: data['id'],
+      category: data['kategori'],
+      name: data['nama'],
+      price: data['harga'],
+      description: data['deskripsi'],
+      image: data['image'],
+      stock: data['stok'],
+      rate: roundDouble(data['rating'].toDouble(), 1));
+
+  factory ArcherModel.packageJson(Map<String, dynamic> data) => ArcherModel(
+      id: data['id'],
+      category: data['kategori'],
+      name: data['nama'],
+      price: 100,
+      description: data['deskripsi'],
+      image: data['image'],
+      stock: data['stok'],
+      rate: roundDouble(data['rating'].toDouble(), 1),
+      listItems: data['isi_paket']);
 
   ArcherModel copyWith({
     int? id,
@@ -55,7 +66,12 @@ class ArcherModel extends Equatable {
 
   @override
   List<Object?> get props =>
-      [id, name, description, category, image, price, rate, stock];
+      [id, name, description, category, image, price, rate, stock, listItems];
+}
+
+double roundDouble(double value, int places) {
+  double mod = pow(10.0, places) as double;
+  return ((value * mod).round().toDouble() / mod);
 }
 
 List<ArcherModel> mockArchers = [
@@ -70,19 +86,4 @@ List<ArcherModel> mockArchers = [
       price: 40000000,
       rate: 3,
       stock: 10),
-  // ArcherModel(2, "Pay and Play", "description", "category", "archer_1.png",
-  //     40000000, 3.5),
-  // ArcherModel(3, "Pay and Play", "description", "category", "archer_1.png", 40000000, 4.5),
-  // ArcherModel(4, "Pay and Play", "description", "category", "archer_1.png", 40000000, 4.5),
-  // ArcherModel(5, "Pay and Play", "description", "category", "archer_1.png", 40000000, 4.5),
-  // ArcherModel(6, "Pay and Play", "description", "category", "archer_1.png", 40000000, 4.5),
-  // ArcherModel(7, "Pay and Play", "description", "category", "archer_1.png", 40000000, 4.5),
-  // ArcherModel(8, "Pay and Plays", "description", "category", "archer_1.png",
-  //     40000000, 2.5),
-  // ArcherModel(9, "Pay and Playss", "description", "category", "archer_1.png",
-  //     40000000, 1.5),
-  // ArcherModel(10, "Pay and Playssssss", "description", "category",
-  //     "archer_1.png", 40000000, 3),
-  // ArcherModel(11, "Pay and Playsss", "description", "category", "archer_1.png",
-  //     40000000, 2),
 ];

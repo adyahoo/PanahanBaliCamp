@@ -3,11 +3,12 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/src/bloc_provider.dart';
-import 'package:hive/hive.dart';
+import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:panahan_app/cubit/cubit.dart';
+import 'package:panahan_app/cubit/cart_cubit.dart';
 import 'package:panahan_app/models/models.dart';
 import 'package:panahan_app/shared/shared.dart';
+import 'package:panahan_app/ui/pages/pages.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:intl/intl.dart';
 
@@ -24,10 +25,3 @@ part 'score_list.dart';
 part 'dropdown.dart';
 part 'item_cart.dart';
 part 'item_order.dart';
-
-UserModel getUserData() {
-  var userBox = Hive.box('userBox');
-  UserModel user = userBox.getAt(0);
-
-  return user;
-}

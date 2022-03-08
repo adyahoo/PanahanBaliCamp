@@ -18,4 +18,15 @@ class ArcherCubit extends Cubit<ArcherState> {
       emit(ArcherLoadedFailed(result.message));
     }
   }
+
+  Future<void> getPackages() async {
+    ApiReturnValue<List<ArcherModel>> result =
+        await ArcherServices.getPackages();
+
+    if (result.value != null) {
+      emit(ArcherLoaded(result.value));
+    } else {
+      emit(ArcherLoadedFailed(result.message));
+    }
+  }
 }

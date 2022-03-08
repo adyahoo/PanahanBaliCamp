@@ -24,7 +24,7 @@ class ScoreList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("Sesi ${index}", style: blackFontStyle2,),
-                    Text("Jarak ${score.distance} Meter", style: blackFontStyle3,)
+                    Text("Jarak ${score.length} Meter", style: blackFontStyle3,)
                   ],
                 ),
                 Container(

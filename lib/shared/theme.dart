@@ -28,4 +28,51 @@ Widget loadingIndicator = SpinKitFadingCircle(
   size: 45,
 );
 
-const String profpicUrl = "https://api.panahan.alengkongbalicamp.com/storage/profile_images/";
+Widget noDataFound = Container(
+    padding: EdgeInsets.only(bottom: 16), child: Text("No Data Found"));
+
+SnackbarController snackbarError({String? title, String? subtitle = ""}) {
+  return Get.snackbar("", "",
+      backgroundColor: redColor,
+      titleText:
+          Text(title!, style: blackFontStyle2.copyWith(color: Colors.white)),
+      messageText: Text(subtitle!,
+          style: blackFontStyle3.copyWith(color: Colors.white)));
+}
+
+SnackbarController snackbarSuccess({String? title}) {
+  return Get.snackbar(
+    "",
+    "",
+    backgroundColor: Colors.green,
+    titleText:
+        Text(title!, style: blackFontStyle2.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+  );
+}
+
+const String storageUrl = "http://api.panahan.alengkongbalicamp.com/storage/";
+const String profpicUrl = storageUrl + "profile_images/";
+const String venuespicUrl = storageUrl + "venues_images/";
+const String itemspicUrl = storageUrl + "items_images/";
+
+Future<bool?> getLoginStatus() async {
+  final pref = await SharedPreferences.getInstance();
+  var status = pref.getBool("isLogin") ?? false;
+
+  return status;
+}
+
+UserModel getUserData() {
+  var userBox = Hive.box('userBox');
+  UserModel user = userBox.getAt(0);
+
+  return user;
+}
+
+String convertDateTimeDisplay(String date) {
+  final DateFormat displayFormater = DateFormat('yyyy-MM-dd HH:mm:ss.SSS');
+  final DateFormat serverFormater = DateFormat('dd-MM-yyyy');
+  final DateTime displayDate = displayFormater.parse(date);
+  final String formatted = serverFormater.format(displayDate);
+  return formatted;
+}

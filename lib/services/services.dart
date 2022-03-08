@@ -20,6 +20,9 @@ part 'venue_services.dart';
 
 part 'pertandingan_services.dart';
 
+part 'score_services.dart';
+part 'cart_services.dart';
+
 String baseURL = 'http://api.panahan.alengkongbalicamp.com/api/';
 String locationBaseUrl = 'https://dev.farizdotid.com/api/daerahindonesia/';
 

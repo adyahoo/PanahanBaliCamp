@@ -1,14 +1,16 @@
 part of 'pages.dart';
 
-class ForgetPasswordPage extends StatefulWidget {
-  const ForgetPasswordPage({Key? key}) : super(key: key);
+class ForgetTokenPage extends StatefulWidget {
+  final String? email;
+
+  const ForgetTokenPage({Key? key, this.email}) : super(key: key);
 
   @override
-  _ForgetPasswordPageState createState() => _ForgetPasswordPageState();
+  _ForgetTokenPageState createState() => _ForgetTokenPageState();
 }
 
-class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
-  TextEditingController emailController = TextEditingController();
+class _ForgetTokenPageState extends State<ForgetTokenPage> {
+  TextEditingController tokenController = TextEditingController();
   bool isLoading = false;
 
   @override
@@ -24,7 +26,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         children: [
           Container(
             margin: EdgeInsets.fromLTRB(defaultMargin, 26, defaultMargin, 6),
-            child: Text("Alamat Email", style: blackFontStyle2),
+            child: Text("Token Reset Password", style: blackFontStyle2),
           ),
           Container(
             width: double.infinity,
@@ -35,11 +37,11 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
               border: Border.all(color: Colors.black),
             ),
             child: TextField(
-              controller: emailController,
+              controller: tokenController,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintStyle: greyFontStyle,
-                hintText: "Masukan Alamat Email",
+                hintText: "Masukan Token Anda",
               ),
             ),
           ),
@@ -55,7 +57,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                     ),
                     elevation: 0,
                     color: mainColor,
-                    child: Text("Kirim Email Reset",
+                    child: Text("Berikutnya",
                         style: blackFontStyle3.copyWith(
                             fontWeight: FontWeight.bold)),
                     onPressed: () async {
@@ -64,15 +66,13 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                       });
                       await context
                           .bloc<UserCubit>()
-                          .postForgetPassEmail(emailController.text);
+                          .postForgetPassToken(tokenController.text);
                       var state = context.bloc<UserCubit>().state;
 
                       if (state is UserPostSuccess) {
-                        snackbarSuccess(
-                            title:
-                                "Silahkan Cek Email Anda Untuk Melihat Token");
-                        Get.off(ForgetTokenPage(
-                          email: emailController.text,
+                        snackbarSuccess(title: state.message!);
+                        Get.off(ChangePasswordPage(
+                          email: widget.email!,
                         ));
                       } else {
                         snackbarError(title: "Gagal Mengirim Token", subtitle: (state as UserLoadedFailed).message!);

@@ -47,9 +47,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                              image: FileImage(pictureFile!),
-                              fit: BoxFit.cover
-                            )),
+                                image: FileImage(pictureFile!),
+                                fit: BoxFit.cover)),
                       )
                     : Container(
                         decoration: BoxDecoration(
@@ -144,14 +143,19 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: EdgeInsets.symmetric(horizontal: defaultMargin),
               child: RaisedButton(
                 onPressed: () {
-                  Get.to(AddressPage(
-                    UserModel(
-                      name: nameController.text,
-                      email: emailController.text
-                    ),
-                    passController.text,
-                    pictureFile
-                  ));
+                  (nameController.text.isNotEmpty &&
+                          emailController.text.isNotEmpty &&
+                          passController.text.isNotEmpty &&
+                          pictureFile != null)
+                      ? Get.to(AddressPage(
+                          UserModel(
+                              name: nameController.text,
+                              email: emailController.text),
+                          passController.text,
+                          pictureFile))
+                      : snackbarError(
+                          title: "Register Failed",
+                          subtitle: "Please Fill All The Field");
                 },
                 elevation: 0,
                 shape: RoundedRectangleBorder(

@@ -2,10 +2,16 @@ part of 'pages.dart';
 
 class ArcherDetailPage extends StatefulWidget {
   final Function onBackButtonPressed;
-  final Transaction transaction;
+  final Transaction? transaction;
+  final UserModel user;
+  final ArcherModel archer;
 
   const ArcherDetailPage(
-      {Key? key, required this.onBackButtonPressed, required this.transaction})
+      {Key? key,
+      required this.onBackButtonPressed,
+      required this.user,
+      required this.archer,
+      this.transaction})
       : super(key: key);
 
   @override
@@ -13,8 +19,8 @@ class ArcherDetailPage extends StatefulWidget {
 }
 
 class _ArcherDetailPageState extends State<ArcherDetailPage> {
-  ArcherModel archer = mockArchers[0];
   int quantity = 1;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +38,7 @@ class _ArcherDetailPageState extends State<ArcherDetailPage> {
               height: 330,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                image: NetworkImage(widget.transaction.archer!.image!),
+                image: NetworkImage(itemspicUrl + widget.archer.image!),
                 fit: BoxFit.cover,
               )),
             ),
@@ -72,19 +78,22 @@ class _ArcherDetailPageState extends State<ArcherDetailPage> {
           SafeArea(
               child: ListView(
             children: [
-              Column(
-                children: [
-                  Container(
-                      width: double.infinity,
-                      height: 360,
-                      margin: EdgeInsets.only(top: 280),
-                      padding: EdgeInsets.all(defaultMargin),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(25),
-                              topRight: Radius.circular(25)),
-                          color: Colors.white),
-                      child: Column(
+              Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height - 320,
+                margin: EdgeInsets.only(top: 280),
+                padding: EdgeInsets.all(defaultMargin),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25),
+                        topRight: Radius.circular(25)),
+                    color: Colors.white),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Container(
+                          child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
@@ -98,12 +107,12 @@ class _ArcherDetailPageState extends State<ArcherDetailPage> {
                                     width: MediaQuery.of(context).size.width -
                                         134, //32+102,
                                     child: Text(
-                                      widget.transaction.archer!.name!,
+                                      widget.archer.name!,
                                       style: blackFontStyle2,
                                     ),
                                   ),
                                   RatingStar(
-                                    rate: widget.transaction.archer!.rate!,
+                                    rate: widget.archer.rate!,
                                   )
                                 ],
                               ),
@@ -183,7 +192,7 @@ class _ArcherDetailPageState extends State<ArcherDetailPage> {
                                   ),
                                   child: Center(
                                       child: Text(
-                                    widget.transaction.archer!.category!,
+                                    widget.archer.category!,
                                     style: greyFontStyle.copyWith(
                                         color: Colors.white, fontSize: 10),
                                   ))),
@@ -203,62 +212,104 @@ class _ArcherDetailPageState extends State<ArcherDetailPage> {
                               SizedBox(
                                 height: 4,
                               ),
-                              Text(
-                                widget.transaction.archer!.description!,
-                                style: greyFontStyle,
-                                maxLines: 4,
-                                overflow: TextOverflow.clip,
+                              Container(
+                                width: double.infinity,
+                                height:
+                                    MediaQuery.of(context).size.height - 600,
+                                child: Scrollbar(
+                                  child: ListView(children: [
+                                    Text(
+                                      widget.archer.description!,
+                                      style: greyFontStyle,
+                                      // maxLines: 4,
+                                      // overflow: TextOverflow.clip,
+                                    ),
+                                  ]),
+                                ),
                               ),
                             ],
                           ),
                           SizedBox(
                             height: 22,
                           ),
-                          //total and order button
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              //total price from price * quantity
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Total Price: ",
-                                    style: greyFontStyle,
-                                  ),
-                                  Text(
-                                    NumberFormat.currency(
-                                      symbol: "IDR ",
-                                      locale: "id-ID",
-                                      decimalDigits: 0,
-                                    ).format(quantity * widget.transaction.archer!.price!),
-                                    style:
-                                        blackFontStyle2.copyWith(fontSize: 18),
-                                  )
-                                ],
-                              ),
-                              //order button
-                              SizedBox(
-                                  width: 163,
-                                  height: 45,
-                                  child: RaisedButton(
-                                    onPressed: () {},
-                                    color: mainColor,
-                                    elevation: 0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Text(
-                                      "Order Now",
-                                      style: blackFontStyle3.copyWith(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  )),
-                            ],
-                          )
                         ],
-                      ))
-                ],
+                      )),
+                    ),
+                    //total and order button
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          //total price from price * quantity
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Total Price: ",
+                                style: greyFontStyle,
+                              ),
+                              Text(
+                                NumberFormat.currency(
+                                  symbol: "IDR ",
+                                  locale: "id-ID",
+                                  decimalDigits: 0,
+                                ).format(quantity * widget.archer.price!),
+                                style: blackFontStyle2.copyWith(fontSize: 18),
+                              )
+                            ],
+                          ),
+                          //order button
+                          SizedBox(
+                              width: 163,
+                              height: 45,
+                              child: !isLoading
+                                  ? RaisedButton(
+                                      onPressed: () async {
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+
+                                        await context
+                                            .bloc<CartCubit>()
+                                            .postCarts(
+                                                widget.user.id!,
+                                                widget.archer.id!,
+                                                "barang",
+                                                quantity);
+                                        var state =
+                                            context.bloc<CartCubit>().state;
+
+                                        if (state is CartPostSuccess) {
+                                          snackbarSuccess(title: state.msg!);
+                                          Get.off(CartPage(user: widget.user));
+                                        } else {
+                                          snackbarError(
+                                              title: "Gagal Menambah Keranjang",
+                                              subtitle:
+                                                  (state as CartLoadedFailed)
+                                                      .msg!);
+                                          setState(() {
+                                            isLoading = false;
+                                          });
+                                        }
+                                      },
+                                      color: mainColor,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Text(
+                                        "Order Now",
+                                        style: blackFontStyle3.copyWith(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )
+                                  : loadingIndicator),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               )
             ],
           )),

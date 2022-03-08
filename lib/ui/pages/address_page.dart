@@ -163,7 +163,7 @@ class _AddressPageState extends State<AddressPage> {
               border: Border.all(color: Colors.black),
             ),
             child: BlocBuilder<CityCubit, CityState>(
-              builder: (_, state) => (state is CityLoaded)
+              builder: (_, state) => (state is CityLoaded && selectedProvince != null)
                   ? DropdownButton(
                       isExpanded: true,
                       underline: SizedBox(),

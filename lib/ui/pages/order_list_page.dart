@@ -44,8 +44,11 @@ class _OrderListPageState extends State<OrderListPage> {
                               onTap: () {
                                 Get.to(OrderDetailPage(transaction: e,));
                               },
-                              child: ItemOrder(
-                                transaction: e,
+                              child: Container(
+                                color: Colors.white,
+                                child: ItemOrder(
+                                  transaction: e,
+                                ),
                               )),
                         ))
                     .toList(),

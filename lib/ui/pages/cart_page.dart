@@ -1,7 +1,9 @@
 part of 'pages.dart';
 
 class CartPage extends StatefulWidget {
-  const CartPage({Key? key}) : super(key: key);
+  final UserModel user;
+
+  const CartPage({Key? key, required this.user}) : super(key: key);
 
   @override
   _CartPageState createState() => _CartPageState();
@@ -14,6 +16,7 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
+    context.bloc<CartCubit>().getCarts(widget.user.id!);
     return GeneralPage(
         title: "Keranjang",
         subtitle: "Item di keranjang mu",
@@ -25,28 +28,35 @@ class _CartPageState extends State<CartPage> {
           //list of items in cart
           Container(
               width: double.infinity,
-              height: (MediaQuery.of(context).size.height) - 260,
+              height: (MediaQuery.of(context).size.height) - 270,
+              margin: EdgeInsets.only(bottom: defaultMargin),
               padding: EdgeInsets.all(defaultMargin),
               color: Colors.white,
               child: ListView(
                 children: [
-                  Column(
-                    children: mockCarts
-                        .map(
-                          (e) => Container(
-                            margin: EdgeInsets.only(
-                                bottom: (e != mockCarts.last) ? 16 : 0),
-                            child: ItemCart(
-                              cart: e,
-                            ),
-                          ),
-                        ).toList(),
+                  BlocBuilder<CartCubit, CartState>(
+                    builder: (_, state) => (state is CartLoaded)
+                        ? (state.carts!.isNotEmpty)
+                            ? Column(
+                                children: state.carts!
+                                    .map(
+                                      (e) => Container(
+                                        margin: EdgeInsets.only(
+                                            bottom: (e != state.carts!.last)
+                                                ? 16
+                                                : 0),
+                                        child: ItemCart(
+                                          cart: e,
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              )
+                            : noDataFound
+                        : loadingIndicator,
                   )
                 ],
               )),
-          SizedBox(
-            height: MediaQuery.of(context).size.height - 650,
-          ),
           //voucher and button submit
           Container(
             width: double.infinity,

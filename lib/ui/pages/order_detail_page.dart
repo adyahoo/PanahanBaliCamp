@@ -11,7 +11,7 @@ class OrderDetailPage extends StatelessWidget {
     int quantity = transaction.carts![0].qty!;
     int delivery = 15000;
     int discount = 15000;
-    int itemPrice = transaction.carts![0].total!;
+    int itemPrice = transaction.carts![0].price!;
 
     return GeneralPage(
         title: "Pemesanan",
@@ -47,7 +47,7 @@ class OrderDetailPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(8),
                                     image: DecorationImage(
                                       image: AssetImage("assets/images/" +
-                                          transaction.carts![0].archer!.image!),
+                                          transaction.carts![0].image!),
                                       fit: BoxFit.cover,
                                     ))),
                             Column(
@@ -60,7 +60,7 @@ class OrderDetailPage extends StatelessWidget {
                                       12 -
                                       78,
                                   child: Text(
-                                    transaction.carts![0].archer!.name!,
+                                    transaction.carts![0].itemName!,
                                     style: blackFontStyle2,
                                     maxLines: 1,
                                     overflow: TextOverflow.clip,
@@ -72,7 +72,7 @@ class OrderDetailPage extends StatelessWidget {
                                           symbol: "IDR ",
                                           decimalDigits: 0)
                                       .format(
-                                          transaction.carts![0].archer!.price),
+                                          transaction.carts![0].price!),
                                   style: greyFontStyle.copyWith(fontSize: 13),
                                 ),
                               ],
@@ -98,7 +98,7 @@ class OrderDetailPage extends StatelessWidget {
                                 defaultMargin -
                                 5,
                             child: Text(
-                              transaction.carts![0].archer!.name!,
+                              transaction.carts![0].itemName!,
                               style: greyFontStyle,
                               maxLines: 1,
                               overflow: TextOverflow.clip,

@@ -43,46 +43,62 @@ class _ArcherPageState extends State<ArcherPage> {
                 (selectedIndex == 0)
                     ? BlocBuilder<JadwalCubit, JadwalState>(
                         builder: (_, state) => (state is JadwalLoaded)
-                            ? Column(
-                                children: state.jadwals!
-                                    .map((e) => Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: defaultMargin),
-                                          child: Jadwal(
-                                            jadwal: e,
-                                            buttonTap: () {},
-                                          ),
-                                        ))
-                                    .toList(),
-                              )
+                            ? (state.jadwals!.length > 0)
+                                ? Column(
+                                    children: state.jadwals!
+                                        .map((e) => Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: defaultMargin),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  Get.to(ScorePage(
+                                                    jadwal: e,
+                                                  ));
+                                                },
+                                                child: Container(
+                                                  color: Colors.white,
+                                                  child: Jadwal(
+                                                    jadwal: e,
+                                                    buttonTap: () {},
+                                                  ),
+                                                ),
+                                              ),
+                                            ))
+                                        .toList(),
+                                  )
+                                : noDataFound
                             : loadingIndicator,
                       )
                     : (selectedIndex == 1)
                         ? BlocBuilder<VenueCubit, VenueState>(
                             builder: (_, state) => (state is VenueLoaded)
-                                ? Column(
-                                    children: state.venues!
-                                        .map((e) => Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: defaultMargin),
-                                            child: Venue(
-                                              venue: e,
-                                              buttonMap: () {},
-                                            )))
-                                        .toList(),
-                                  )
+                                ? (state.venues!.length > 0)
+                                    ? Column(
+                                        children: state.venues!
+                                            .map((e) => Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: defaultMargin),
+                                                child: Venue(
+                                                  venue: e,
+                                                  buttonMap: () {},
+                                                )))
+                                            .toList(),
+                                      )
+                                    : noDataFound
                                 : loadingIndicator,
                           )
                         : BlocBuilder<PertandinganCubit, PertandinganState>(
                             builder: (_, state) => (state is PertandinganLoaded)
-                                ? Column(
-                                    children: state.pertandingans!
-                                        .map((e) => Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: defaultMargin),
-                                            child:
-                                                Pertandingan(pertandingan: e)))
-                                        .toList())
+                                ? (state.pertandingans!.length > 0)
+                                    ? Column(
+                                        children: state.pertandingans!
+                                            .map((e) => Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: defaultMargin),
+                                                child: Pertandingan(
+                                                    pertandingan: e)))
+                                            .toList())
+                                    : noDataFound
                                 : loadingIndicator,
                           ),
                 SizedBox(height: 16)

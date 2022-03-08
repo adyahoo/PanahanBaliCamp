@@ -14,7 +14,7 @@ class VenueModel extends Equatable {
     id: data['id'],
     name: data['nama'],
     address: data['alamat'],
-    image: "venue.jpg",
+    image: data['foto'],
     totalActivity: data['jumlah_kegiatan'],
   );
 

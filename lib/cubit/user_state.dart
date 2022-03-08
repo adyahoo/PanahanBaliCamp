@@ -29,11 +29,11 @@ class UserLoadedFailed extends UserState {
   List<Object?> get props => [message];
 }
 
-//class untuk handle jika logout berhasil
-class UserLoggedOut extends UserState {
+//class untuk handle jika method post berhasil
+class UserPostSuccess extends UserState {
   final String? message;
 
-  UserLoggedOut(this.message);
+  UserPostSuccess(this.message);
 
   @override
   List<Object?> get props => [message];

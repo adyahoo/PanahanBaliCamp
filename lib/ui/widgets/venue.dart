@@ -22,7 +22,7 @@ class Venue extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     image: DecorationImage(
-                        image: AssetImage("assets/images/" + venue.image!),
+                        image: NetworkImage(venuespicUrl + venue.image!),
                         fit: BoxFit.cover
                     )
                 ),

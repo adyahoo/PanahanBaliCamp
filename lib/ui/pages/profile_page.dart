@@ -62,23 +62,28 @@ class _ProfilePageState extends State<ProfilePage> {
                 ? Container(
                     padding: EdgeInsets.symmetric(horizontal: defaultMargin),
                     child: Column(children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Ubah Profile", style: blackFontStyle3),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              width: 24,
-                              height: 24,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                image:
-                                    AssetImage("assets/images/right_arrow.png"),
-                              )),
-                            ),
-                          )
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(EditProfilePage(user: user));
+                        },
+                        child: Container(
+                          color: Colors.white,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Ubah Profile", style: blackFontStyle3),
+                              Container(
+                                width: 24,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                  image: AssetImage(
+                                      "assets/images/right_arrow.png"),
+                                )),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                       SizedBox(height: 10),
                       Row(
@@ -123,20 +128,23 @@ class _ProfilePageState extends State<ProfilePage> {
                         onTap: () {
                           Get.to(IdCardPage());
                         },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("ID Card", style: blackFontStyle3),
-                            Container(
-                              width: 24,
-                              height: 24,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                image:
-                                    AssetImage("assets/images/right_arrow.png"),
-                              )),
-                            ),
-                          ],
+                        child: Container(
+                          color: Colors.white,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("ID Card", style: blackFontStyle3),
+                              Container(
+                                width: 24,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                  image: AssetImage(
+                                      "assets/images/right_arrow.png"),
+                                )),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ]))
@@ -249,7 +257,7 @@ class _ProfilePageState extends State<ProfilePage> {
           await context.bloc<UserCubit>().logout();
           var state = context.bloc<UserCubit>().state;
 
-          if (state is UserLoggedOut) {
+          if (state is UserPostSuccess) {
             Get.snackbar(
               "",
               "",

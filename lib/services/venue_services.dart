@@ -14,7 +14,7 @@ class VenueServices {
 
     var data = jsonDecode(response.body);
 
-    if (data['status'] != "200") {
+    if (data['status'] != 200) {
       return ApiReturnValue(message: "${data['message']}, Please Try Again");
     }
 

@@ -7,14 +7,21 @@ class JadwalModel extends Equatable {
   final String? startTime;
   final String? endTime;
   final String? status;
+  final String? image;
+  final String? description;
+  final String? venue;
 
-  JadwalModel(
-      {this.id,
-      this.name,
-      this.date,
-      this.status,
-      this.startTime,
-      this.endTime});
+  JadwalModel({
+    this.id,
+    this.name,
+    this.date,
+    this.status,
+    this.startTime,
+    this.endTime,
+    this.image,
+    this.description,
+    this.venue,
+  });
 
   factory JadwalModel.fromJson(Map<String, dynamic> data) => JadwalModel(
         id: data['id'],
@@ -23,10 +30,14 @@ class JadwalModel extends Equatable {
         startTime: data['jam_mulai'],
         endTime: data['jam_selesai'],
         status: data['status'],
+        image: data['foto_kegiatan'],
+        description: data['deskripsi_kegiatan'],
+        venue: data['venue'],
       );
 
   @override
-  List<Object?> get props => [id, name, date, startTime, endTime, status];
+  List<Object?> get props =>
+      [id, name, date, startTime, endTime, status, image, description, venue];
 }
 
 List<JadwalModel> mockJadwal = [

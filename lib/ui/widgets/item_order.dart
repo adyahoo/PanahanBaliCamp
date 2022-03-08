@@ -16,7 +16,7 @@ class ItemOrder extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               image: DecorationImage(
-                  image: AssetImage("assets/images/${transaction.carts![0].archer!.image}"),
+                  image: AssetImage("assets/images/${transaction.carts![0].image!}"),
                   fit: BoxFit.cover)),
         ),
         SizedBox(
@@ -27,7 +27,7 @@ class ItemOrder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              transaction.carts![0].archer!.name!,
+              transaction.carts![0].itemName!,
               style: blackFontStyle2,
             ),
             Text(
@@ -36,7 +36,7 @@ class ItemOrder extends StatelessWidget {
                     symbol: "IDR ",
                     locale: "id-ID",
                     decimalDigits: 0,
-                  ).format(transaction.carts![0].total),
+                  ).format(transaction.carts![0].price!),
               style: greyFontStyle,
             )
           ],

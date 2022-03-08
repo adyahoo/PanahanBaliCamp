@@ -1,15 +1,26 @@
 part of 'models.dart';
 
-class ScoreModel {
-  final String practiceDate;
-  final int distance;
-  final VenueModel venue;
-  final int score;
+class ScoreModel extends Equatable {
+  final int? id;
+  final int? detailId;
+  final int? score;
+  final int? length;
+  final int? session;
 
-  ScoreModel(this.practiceDate, this.distance, this.venue, this.score);
+  ScoreModel({this.id, this.detailId, this.score, this.length, this.session});
+
+  factory ScoreModel.fromJson(Map<String, dynamic> data) => ScoreModel(
+      id: data['id'],
+      detailId: data['user_detail_activity_id'],
+      score: data['score'],
+      length: data['length'],
+      session: data['session']);
+
+  @override
+  List<Object?> get props => [id, detailId, score, length, session];
 }
 
 List<ScoreModel> mockScore = [
-  ScoreModel("12/12/2021", 50, mockVenue[0], 150),
-  ScoreModel("12/12/2021", 30, mockVenue[0], 200),
+  ScoreModel(detailId: 12, score: 50, length: 150),
+  ScoreModel(detailId: 13, score: 80, length: 150),
 ];
